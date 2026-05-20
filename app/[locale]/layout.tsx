@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DataSpectacles",
-  description: "New stories, told with data — in five languages.",
+  title: "Ganda Gula",
+  description: "Restaurante Ganda Gula — Especialidade em Bacalhau, Chaves",
 };
 
 export default async function RootLayout({

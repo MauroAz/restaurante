@@ -1,48 +1,31 @@
 "use client";
 
 /*
-  🦶 FOOTER — DataSpectacles
-  ===========================
-  Teaching note: the footer has four jobs:
-  1. Brand reminder — logo/name at the bottom
-  2. Quick navigation — mirrors the navbar links
-  3. Social links — opens in new tab with security best practices
-  4. Mission button — tucked here so it doesn't clutter the main nav
-     but is findable by anyone who wants to know more about the project
+  🦶 FOOTER — Ganda Gula (compact)
+  ==================================
+  Teaching note: compact two-column footer.
+  LEFT:  logo + tagline
+  CENTER: "Voltar ao Topo" button centered
+  RIGHT: nav links + social icons + copyright
 
-  Theme support: reads isLight from useTheme() and switches all
-  colours automatically — same pattern as every other component.
+  The "Reservas" nav link has a glowing pulse animation —
+  CSS keyframes create the intermittent halo effect.
+  This draws the eye to the main call to action without
+  being too aggressive. Pure CSS, no JavaScript needed.
 */
 
+import Image from "next/image";
 import { useTheme } from "../../context/ThemeProvider";
-import { FaFacebook, FaYoutube, FaInstagram } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
 
-/* ============================================================
-   Nav links — keep in sync with navbar/index.tsx
-   Teaching note: defined outside the component so this array
-   is created once, not on every re-render.
-   ============================================================ */
 const navLinks = [
-  { label: "Stories", target: "stories" },
-  { label: "World", target: "globe" },
-  { label: "Watch", target: "video" },
-  { label: "Contact", target: "contact" },
+  { label: "🍽️ Menu", target: "menu", cta: false },
+  { label: "📅 Reservas", target: "reservas", cta: true },
+  { label: "👨‍🍳 El Chef", target: "chef", cta: false },
+  { label: "📍 Mapa", target: "mapa", cta: false },
 ];
 
-/* ============================================================
-   Social links
-   Teaching note: storing the icon as JSX and color as a string
-   lets us map over this array cleanly instead of repeating
-   the same <a> block five times.
-   ============================================================ */
 const socialLinks = [
-  {
-    label: "Instagram",
-    url: "https://instagram.com",
-    icon: <FaInstagram size={22} />,
-    color: "#E1306C",
-  },
   {
     label: "Facebook",
     url: "https://facebook.com",
@@ -50,16 +33,16 @@ const socialLinks = [
     color: "#1877F2",
   },
   {
-    label: "YouTube",
-    url: "https://www.youtube.com/@dataspectacles",
-    icon: <FaYoutube size={22} />,
-    color: "#FF0000",
+    label: "Instagram",
+    url: "https://instagram.com",
+    icon: <FaInstagram size={22} />,
+    color: "#E1306C",
   },
   {
-    label: "X",
-    url: "https://x.com",
-    icon: <FaXTwitter size={22} />,
-    color: "#ffffff",
+    label: "WhatsApp",
+    url: "https://wa.me/351000000000",
+    icon: <FaWhatsapp size={22} />,
+    color: "#25D366",
   },
 ];
 
@@ -67,123 +50,162 @@ export default function Footer() {
   const { theme } = useTheme();
   const isLight = theme === "light";
 
-  /*
-    Teaching note: all theme-dependent values defined here
-    at the top — not scattered through the JSX. One place
-    to look when adjusting light/dark colours.
-  */
-  const bg = isLight ? "#E2D0B8" : "#0A0705";
-  const borderColor = isLight ? "#C4A882" : "#3D3530";
-  const textPrimary = isLight ? "#2C1810" : "#F0E6D3";
-  const textMuted = isLight ? "#8B6340" : "#8A7A6A";
-  const linkColor = isLight ? "#5A3A22" : "#C4B49A";
+  const bg = isLight ? "var(--gg-bg-card)" : "#030D14";
+  const borderColor = isLight ? "var(--gg-bg-border)" : "#0A3050";
+  const textMuted = isLight ? "var(--gg-text-muted)" : "#4A80A8";
+  const linkColor = isLight ? "var(--gg-text-secondary)" : "#7BBDE8";
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer className="px-6 py-14" style={{ backgroundColor: bg }}>
+    <footer
+      style={{
+        backgroundColor: bg,
+        borderTop: `1px solid ${borderColor}`,
+        padding: "1.5rem 1.5rem 1rem",
+      }}
+    >
+      {/*
+        Teaching note: the @keyframes pulse-ring animation creates
+        an expanding ring that fades out — like a sonar ping.
+        box-shadow with spread-radius animates outward.
+        animation-iteration-count: infinite keeps it looping.
+        We use a <style> tag here because this animation only
+        exists in the footer — no need to put it in globals.css.
+      */}
+      <style>{`
+      @keyframes pulse-ring {
+          0%   { box-shadow: 0 0 0 0px rgba(255, 215, 0, 0.7); }
+          70%  { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+          100% { box-shadow: 0 0 0 0px rgba(255, 215, 0, 0); }
+        }
+        .cta-pulse {
+          animation: pulse-ring 2s ease-out infinite;
+          border-radius: 20px;
+        }
+      `}</style>
+
       <div className="max-w-6xl mx-auto">
-        {/* ── TOP ROW — brand + nav links ──────────────────── */}
-        <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-10">
-          {/* Brand block */}
-          <div>
+        {/* ── MAIN ROW — logo | nav+social ─────────────────── */}
+        <div
+          className="flex flex-col md:grid items-center gap-4"
+          style={{ gridTemplateColumns: "auto 1fr" }}
+        >
+          {/* LEFT — logo + tagline */}
+          <a href="#home" style={{ textDecoration: "none" }}>
+            <Image
+              src="/images/logo-ganda-gula.png"
+              alt="Ganda Gula"
+              width={100}
+              height={50}
+              className="h-10 w-auto"
+            />
             <p
-              className="text-xl font-bold mb-1"
               style={{
-                color: textPrimary,
-                fontFamily: "Georgia, serif",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              DataSpectacles
-            </p>
-            <p
-              className="text-sm italic"
-              style={{ color: textMuted, fontFamily: "Georgia, serif" }}
-            >
-              New stories, told with data.
-            </p>
-          </div>
-
-          {/* Nav links */}
-          <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={`#${link.target}`}
-                className="transition hover:opacity-75"
-                style={{ color: linkColor, textDecoration: "none" }}
-              >
-                {link.label}
-              </a>
-            ))}
-
-            {/* ── Mission button ──────────────────────────────
-                Teaching note: this is a ghost button — transparent
-                background, just a border. It sits in the footer
-                rather than the main nav so it doesn't compete
-                with the primary CTAs, but is easy to find for
-                anyone curious about the project's purpose. */}
-
-            <a
-              href="#mission"
-              className="transition hover:opacity-75 ds-btn-secondary"
-              style={{
-                color: "var(--ds-accent)",
-                borderColor: "var(--ds-accent)",
-                padding: "2px 12px",
-                borderRadius: "20px",
+                color: textMuted,
                 fontSize: "0.8rem",
-                fontWeight: 600,
-                textDecoration: "none",
-                letterSpacing: "0.02em",
+                fontStyle: "italic",
+                fontFamily: "Georgia, serif",
+                marginTop: "4px",
               }}
             >
-              Our Mission
-            </a>
+              O melhor bacalhau de Chaves.
+            </p>
+          </a>
+
+          {/* RIGHT — nav links + social + copyright */}
+          <div className="flex flex-col gap-3 md:items-end items-center">
+            {/* Nav links */}
+            <div className="flex flex-wrap gap-x-6 gap-y-2 items-center justify-end">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={`#${link.target}`}
+                  className={link.cta ? "cta-pulse" : ""}
+                  style={{
+                    backgroundColor: "transparent",
+                    padding: link.cta ? "4px 14px" : "0",
+                    borderRadius: link.cta ? "20px" : "0",
+                    border: link.cta ? "1.5px solid #FFD700" : "none",
+                    textDecoration: "none",
+                    fontSize: "0.95rem",
+                    fontWeight: 500,
+                    color: linkColor,
+                    transition: "color 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!link.cta)
+                      e.currentTarget.style.color = "var(--gg-accent)";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!link.cta) e.currentTarget.style.color = linkColor;
+                  }}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+
+            {/* Social icons + copyright */}
+            <div className="flex items-center gap-4">
+              {socialLinks.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="transition hover:scale-110"
+                  style={{ color: s.color }}
+                >
+                  {s.icon}
+                </a>
+              ))}
+              <div
+                style={{
+                  width: "1px",
+                  height: "18px",
+                  backgroundColor: borderColor,
+                }}
+              />
+              <p style={{ color: textMuted, fontSize: "0.8rem" }}>
+                © {new Date().getFullYear()} Ganda Gula
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* ── SOCIAL ICONS ─────────────────────────────────── */}
-        {/*
-          Teaching note: target="_blank" opens in a new tab.
-          rel="noopener noreferrer" is a security best practice —
-          without it, the new tab can access your page via
-          window.opener which is a security vulnerability.
-        */}
-        <div className="flex gap-5 mb-10">
-          {socialLinks.map((social) => (
-            <a
-              key={social.label}
-              href={social.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={social.label}
-              className="transition hover:scale-125"
-              style={{ color: social.color }}
-            >
-              {social.icon}
-            </a>
-          ))}
-        </div>
-
-        {/* ── DIVIDER ──────────────────────────────────────── */}
-        <hr style={{ borderColor: borderColor, marginBottom: "1.5rem" }} />
-
-        {/* ── BOTTOM ROW — tagline + copyright ─────────────── */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-3">
-          <p
-            className="text-sm italic"
-            style={{ color: textMuted, fontFamily: "Georgia, serif" }}
+        {/* ── BACK TO TOP — centered ────────────────────────── */}
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: "1.25rem",
+            paddingTop: "1rem",
+            borderTop: `1px solid ${borderColor}`,
+          }}
+        >
+          <button
+            onClick={scrollToTop}
+            style={{
+              backgroundColor: "var(--gg-accent)",
+              color: "#fff",
+              border: "none",
+              padding: "8px 28px",
+              borderRadius: "20px",
+              fontSize: "0.9rem",
+              fontWeight: 600,
+              cursor: "pointer",
+              transition: "background 0.2s",
+            }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = "var(--gg-accent-hover)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "var(--gg-accent)")
+            }
           >
-            "Data is just the beginning of the story."
-          </p>
-
-          {/*
-            Teaching note: new Date().getFullYear() always returns
-            the current year — copyright never goes stale.
-          */}
-          <p className="text-xs" style={{ color: textMuted }}>
-            © {new Date().getFullYear()} DataSpectacles. All rights reserved.
-          </p>
+            ↑ Voltar ao Topo
+          </button>
         </div>
       </div>
     </footer>

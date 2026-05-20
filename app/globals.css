@@ -3,70 +3,98 @@
 @variant dark (&:where(.dark, .dark *));
 
 /* ============================================================
-   🎨 DATASPECTACLES — Design Tokens
-   Teaching note: CSS custom properties (variables) defined here
-   cascade to every component. Change one value here = changes
-   everywhere. This is our single source of truth for colours,
-   fonts and spacing.
+   🎨 GANDA GULA — Design Tokens
+   Teaching note: same architecture as DataSpectacles and
+   Estamos a Pensar — CSS custom properties defined once here,
+   used everywhere. Changing a colour here updates the whole site.
+
+   Aquatic theme:
+   - Light mode: ocean surface — whites, ice blues, seafoam
+   - Dark mode: ocean depth — deep navy, teal, not pitch black
    ============================================================ */
 
 :root {
-  /* --- Backgrounds (darkest = page, lightest = elevated card) --- */
-  --ds-bg-page: #0e0b09; /* near-black warm ink — page background */
-  --ds-bg-card: #1c1713; /* dark card surface */
-  --ds-bg-elevated: #2a211a; /* hover states, elevated elements */
-  --ds-bg-border: #3d3530; /* dividers, borders */
+  /* --- Backgrounds --- */
+  --gg-bg-page: #f0f8ff; /* Alice blue — clean ocean surface */
+  --gg-bg-card: #e8f4fd; /* slightly deeper card surface */
+  --gg-bg-elevated: #d4eaf7; /* hover states */
+  --gg-bg-border: #b8d4e8; /* borders and dividers */
 
-  /* --- Text (warm white scale for readability) --- */
-  --ds-text-primary: #f0e6d3; /* warm white — main body and headings */
-  --ds-text-secondary: #c4b49a; /* improved from original — easier to read */
-  --ds-text-muted: #8a7a6a; /* timestamps, metadata */
+  /* --- Text --- */
+  --gg-text-primary: #0a2540; /* deep ocean ink — high contrast */
+  --gg-text-secondary: #1e5080; /* mid ocean blue */
+  --gg-text-muted: #4a80a8; /* muted blue-grey */
 
-  /* --- Accent — burnt orange (CTAs, active states, tags) --- */
-  --ds-accent: #e8621a;
-  --ds-accent-hover: #c44e10;
-  --ds-accent-light: #ff8c4a;
+  /* --- Accent — seafoam teal (CTAs, highlights) --- */
+  --gg-accent: #0096a0; /* teal — strong, ocean-inspired */
+  --gg-accent-hover: #007a84;
+  --gg-accent-light: #40c8d0;
 
-  /* --- Category colours (each story category has its own tint) ---
-     Teaching note: we use subtle bg + bright text combos so
-     category chips are readable on our dark backgrounds.
-     Red was removed from Odd Correlations — red = danger in UI.
-     Amber/gold reads as "curious/unexpected" which fits better. */
-  --ds-cat-words-bg: #1a2e3d;
-  --ds-cat-words-text: #7bbde8;
-  --ds-cat-culture-bg: #2e1a2e;
-  --ds-cat-culture-text: #c47be8;
-  --ds-cat-sports-bg: #1a2e1a;
-  --ds-cat-sports-text: #7be87b;
-  --ds-cat-curious-bg: #2e2a1a;
-  --ds-cat-curious-text: #e8d07b;
-  --ds-cat-odd-bg: #2e2410;
-  --ds-cat-odd-text: #e8a830; /* gold/amber — not red */
-  --ds-cat-updating-bg: #1a2a2e;
-  --ds-cat-updating-text: #7be8d0;
+  /* --- Legacy variables so cloned components don't break ---
+     Teaching note: when cloning from DataSpectacles, some
+     components still reference --ds-* variables. We map them
+     here to our new values so nothing breaks while we update
+     files one by one. Remove these once all files are updated. */
+  --ds-accent: var(--gg-accent);
+  --ds-accent-hover: var(--gg-accent-hover);
+  --ds-bg-page: var(--gg-bg-page);
+  --ds-bg-card: var(--gg-bg-card);
+  --ds-bg-elevated: var(--gg-bg-elevated);
+  --ds-bg-border: var(--gg-bg-border);
+  --ds-text-primary: var(--gg-text-primary);
+  --ds-text-secondary: var(--gg-text-secondary);
+  --ds-text-muted: var(--gg-text-muted);
 
-  /* --- Typography --- */
-  --ds-font-serif: Georgia, "Times New Roman", serif; /* editorial headings */
-  --ds-font-sans: Arial, Helvetica, sans-serif; /* UI and body */
+  --background: var(--gg-bg-page);
+  --foreground: var(--gg-text-primary);
+}
 
-  /* Legacy variables kept so existing components don't break */
-  --background: var(--ds-bg-page);
-  --foreground: var(--ds-text-primary);
+/* ============================================================
+   🌊 DARK MODE — deep ocean
+   Teaching note: ThemeProvider adds class="dark" to <html>.
+   We override every variable here for dark mode.
+   Components read the variables — they update automatically.
+   ============================================================ */
+.dark {
+  /* Backgrounds — deep navy, not pitch black */
+  --gg-bg-page: #051520;
+  --gg-bg-card: #0a2030;
+  --gg-bg-elevated: #0f2d40;
+  --gg-bg-border: #1a4060;
+
+  /* Text — ice blue scale */
+  --gg-text-primary: #e0f0ff;
+  --gg-text-secondary: #7bbde8;
+  --gg-text-muted: #4a80a8;
+
+  /* Accent stays teal — works on both light and dark */
+  --gg-accent: #00b8c4;
+  --gg-accent-hover: #0096a0;
+  --gg-accent-light: #40d8e0;
+
+  /* Map ds-* to new gg-* values for dark mode too */
+  --ds-accent: var(--gg-accent);
+  --ds-accent-hover: var(--gg-accent-hover);
+  --ds-bg-page: var(--gg-bg-page);
+  --ds-bg-card: var(--gg-bg-card);
+  --ds-bg-elevated: var(--gg-bg-elevated);
+  --ds-bg-border: var(--gg-bg-border);
+  --ds-text-primary: var(--gg-text-primary);
+  --ds-text-secondary: var(--gg-text-secondary);
+  --ds-text-muted: var(--gg-text-muted);
+
+  --background: var(--gg-bg-page);
+  --foreground: var(--gg-text-primary);
 }
 
 /* ============================================================
    📐 BASE STYLES
-   Teaching note: we set global defaults here so every element
-   inherits the right font and colour without repeating it.
    ============================================================ */
 
 body {
-  background: var(--ds-bg-page);
-  color: var(--ds-text-primary);
-  font-family: var(--ds-font-sans);
-
-  /* Improved readability: slightly looser line-height and
-     font-smoothing makes text crisper on dark backgrounds */
+  background: var(--gg-bg-page);
+  color: var(--gg-text-primary);
+  font-family: Arial, Helvetica, sans-serif;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -76,76 +104,27 @@ html {
   scroll-behavior: smooth;
 }
 
-/* ============================================================
-   ✍️ TYPOGRAPHY SCALE
-   Teaching note: instead of hardcoding font sizes in each
-   component, define them once here. Components just apply
-   the class. Easier to change globally later.
-   ============================================================ */
-
 h1,
 h2,
 h3,
 h4 {
-  font-family: var(--ds-font-serif);
-  color: var(--ds-text-primary);
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--gg-text-primary);
   line-height: 1.25;
   letter-spacing: -0.01em;
 }
 
 p {
-  color: var(--ds-text-secondary);
-  line-height: 1.75; /* extra breathing room for body text = better readability */
-}
-
-/* ============================================================
-   🏷️ CATEGORY CHIP UTILITY CLASSES
-   Teaching note: these classes map category names to their
-   colours. Components just apply e.g. class="ds-chip-sports"
-   and get the right bg/text automatically.
-   ============================================================ */
-
-.ds-chip {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 3px 10px;
-  border-radius: 20px;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-.ds-chip-words {
-  background: var(--ds-cat-words-bg);
-  color: var(--ds-cat-words-text);
-}
-.ds-chip-culture {
-  background: var(--ds-cat-culture-bg);
-  color: var(--ds-cat-culture-text);
-}
-.ds-chip-sports {
-  background: var(--ds-cat-sports-bg);
-  color: var(--ds-cat-sports-text);
-}
-.ds-chip-curious {
-  background: var(--ds-cat-curious-bg);
-  color: var(--ds-cat-curious-text);
-}
-.ds-chip-odd {
-  background: var(--ds-cat-odd-bg);
-  color: var(--ds-cat-odd-text);
-}
-.ds-chip-updating {
-  background: var(--ds-cat-updating-bg);
-  color: var(--ds-cat-updating-text);
+  color: var(--gg-text-secondary);
+  line-height: 1.75;
 }
 
 /* ============================================================
    🔘 BUTTON UTILITY CLASSES
    ============================================================ */
 
-.ds-btn-primary {
-  background: var(--ds-accent);
+.gg-btn-primary {
+  background: var(--gg-accent);
   color: #fff;
   border: none;
   padding: 10px 24px;
@@ -157,14 +136,14 @@ p {
   text-decoration: none;
   display: inline-block;
 }
-.ds-btn-primary:hover {
-  background: var(--ds-accent-hover);
+.gg-btn-primary:hover {
+  background: var(--gg-accent-hover);
 }
 
-.ds-btn-secondary {
+.gg-btn-secondary {
   background: transparent;
-  color: var(--ds-text-primary);
-  border: 1px solid var(--ds-bg-border);
+  color: var(--gg-text-primary);
+  border: 1px solid var(--gg-bg-border);
   padding: 10px 24px;
   border-radius: 24px;
   font-size: 0.9rem;
@@ -176,54 +155,7 @@ p {
   text-decoration: none;
   display: inline-block;
 }
-.ds-btn-secondary:hover {
-  border-color: var(--ds-text-muted);
-  color: var(--ds-text-primary);
-}
-/* ============================================================
-   ☀️ LIGHT MODE OVERRIDES
-   Teaching note: the ThemeProvider adds class="light" to
-   <html> when light mode is active. We override every CSS
-   variable here — components don't need to change at all.
-   This is the power of CSS custom properties: change the
-   variable, everything using it updates automatically.
-
-   Dark values live in :root (the default).
-   Light values live here and override when .light is active.
-   ============================================================ */
-
-.light {
-  /* Backgrounds — warm paper tones */
-  --ds-bg-page: #f5ede0;
-  --ds-bg-card: #ede0ce;
-  --ds-bg-elevated: #e2d0b8;
-  --ds-bg-border: #c4a882;
-
-  /* Text — dark ink on paper */
-  --ds-text-primary: #2c1810;
-  --ds-text-secondary: #5a3a22;
-  --ds-text-muted: #8b6340;
-
-  /* Accent stays the same — burnt orange works on both */
-  --ds-accent: #e8621a;
-  --ds-accent-hover: #c44e10;
-  --ds-accent-light: #ff8c4a;
-
-  /* Category chips — same hues but lightened for paper bg */
-  --ds-cat-words-bg: #d4e8f5;
-  --ds-cat-words-text: #1a5c8a;
-  --ds-cat-culture-bg: #f0d4f5;
-  --ds-cat-culture-text: #6a1a8a;
-  --ds-cat-sports-bg: #d4f5d4;
-  --ds-cat-sports-text: #1a6a1a;
-  --ds-cat-curious-bg: #f5f0d4;
-  --ds-cat-curious-text: #6a5a1a;
-  --ds-cat-odd-bg: #f5e8d4;
-  --ds-cat-odd-text: #8a5a10;
-  --ds-cat-updating-bg: #d4f5ee;
-  --ds-cat-updating-text: #1a6a5a;
-
-  /* Legacy */
-  --background: var(--ds-bg-page);
-  --foreground: var(--ds-text-primary);
+.gg-btn-secondary:hover {
+  border-color: var(--gg-text-muted);
+  color: var(--gg-text-primary);
 }
