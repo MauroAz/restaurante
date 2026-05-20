@@ -28,7 +28,7 @@ export default function ScrollDots() {
   const dotColor = isLight ? "#2A6090" : "#7BBDE8";
 
   return (
-    <div className="fixed right-4 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-50">
+    <div className="fixed right-2 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-50 hidden xl:flex">
       {sections.map((section) => (
         <a
           key={section}

@@ -27,9 +27,9 @@ const mapsUrl =
 const directionsUrl = "https://maps.google.com/?q=Chaves,Portugal";
 
 const hours = [
-  { day: "Seg – Sex", time: "12h–15h | 19h–22h30" },
-  { day: "Sábado", time: "12h–15h30 | 19h–23h" },
-  { day: "Domingo", time: "12h–15h30" },
+  { day: "Terça a Sábado", time: "10h–23h" },
+  { day: "Domingo", time: "10h–16h" },
+  { day: "Segunda", time: "Encerrado" },
 ];
 
 export default function MapaSection() {
@@ -219,8 +219,8 @@ export default function MapaSection() {
                 <div key={row.day}>
                   <p
                     style={{
-                      color: "var(--gg-text-muted)",
-                      fontSize: "0.82rem",
+                      color: "var(--gg-text-secondary)",
+                      fontSize: "0.9rem",
                     }}
                   >
                     {row.day}
@@ -229,7 +229,7 @@ export default function MapaSection() {
                     style={{
                       color: "var(--gg-text-primary)",
                       fontSize: "0.95rem",
-                      fontWeight: 600,
+                      fontWeight: 700,
                     }}
                   >
                     {row.time}

@@ -67,6 +67,9 @@ export default function ReservasSection() {
   };
 
   const getStatus = (day) => {
+    // Monday = day of week 1. Check if this calendar day falls on a Monday.
+    const dayOfWeek = new Date(calYear, calMonth, day).getDay();
+    if (dayOfWeek === 1) return "soldout"; // Monday — always closed
     if (SOLD_OUT[meal].includes(day)) return "soldout";
     if (ALMOST[meal].includes(day)) return "almost";
     return "available";
@@ -321,7 +324,7 @@ export default function ReservasSection() {
                 {[
                   { dotColor: "#4ADE80", label: "Disponível" },
                   { dotColor: "#FFD700", label: "Vagas Limitadas" },
-                  { dotColor: "#FF6B6B", label: "Lotado/Esgotado" },
+                  { dotColor: "#FF6B6B", label: "Lotado / Encerrado" },
                 ].map((item) => (
                   <div
                     key={item.label}
@@ -406,15 +409,31 @@ export default function ReservasSection() {
                 <FaPhone size={16} />
                 +351 000 000 000
               </a>
-              <p
-                style={{
-                  color: "var(--gg-text-muted)",
-                  fontSize: "0.85rem",
-                  textAlign: "center",
-                }}
-              >
-                Segunda a Domingo — 12h00–15h00 e 19h00–22h30
-              </p>
+              <div style={{ textAlign: "center" }}>
+                <p
+                  style={{
+                    color: "var(--gg-text-primary)",
+                    fontSize: "0.9rem",
+                    fontWeight: 600,
+                  }}
+                >
+                  Ter–Sáb: 10h–23h
+                </p>
+                <p
+                  style={{
+                    color: "var(--gg-text-primary)",
+                    fontSize: "0.9rem",
+                    fontWeight: 600,
+                  }}
+                >
+                  Dom: 10h–16h
+                </p>
+                <p
+                  style={{ color: "var(--gg-text-muted)", fontSize: "0.85rem" }}
+                >
+                  Segunda: Encerrado
+                </p>
+              </div>
             </div>
           </div>
 
