@@ -159,3 +159,37 @@ p {
   border-color: var(--gg-text-muted);
   color: var(--gg-text-primary);
 }
+
+/* ============================================================
+   ☀️ LIGHT MODE — softer ocean surface
+   Teaching note: ThemeProvider adds class="light" to <html>.
+   These values override :root when light mode is active.
+   Softer blues — less harsh than pure white.
+   ============================================================ */
+.light {
+  --gg-bg-page: #d8e8f5;
+  --gg-bg-card: #ccdff0;
+  --gg-bg-elevated: #bdd4ea;
+  --gg-bg-border: #9abdd6;
+
+  --gg-text-primary: #0a2540;
+  --gg-text-secondary: #1e5080;
+  --gg-text-muted: #4a80a8;
+
+  --gg-accent: #0096a0;
+  --gg-accent-hover: #007a84;
+  --gg-accent-light: #40c8d0;
+
+  --ds-accent: var(--gg-accent);
+  --ds-accent-hover: var(--gg-accent-hover);
+  --ds-bg-page: var(--gg-bg-page);
+  --ds-bg-card: var(--gg-bg-card);
+  --ds-bg-elevated: var(--gg-bg-elevated);
+  --ds-bg-border: var(--gg-bg-border);
+  --ds-text-primary: var(--gg-text-primary);
+  --ds-text-secondary: var(--gg-text-secondary);
+  --ds-text-muted: var(--gg-text-muted);
+
+  --background: var(--gg-bg-page);
+  --foreground: var(--gg-text-primary);
+}

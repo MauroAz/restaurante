@@ -12,8 +12,8 @@ function getInitialTheme() {
     const saved = localStorage.getItem("theme");
     if (saved) return saved;
   }
-  // Default to light mode — user can switch to dark via the toggle
-  return "light";
+  // Default to dark mode — user can switch to light via the toggle
+  return "dark";
 }
 
 export const ThemeContext = createContext();
