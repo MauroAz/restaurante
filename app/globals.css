@@ -14,27 +14,22 @@
    ============================================================ */
 
 :root {
-  /* --- Backgrounds --- */
-  --gg-bg-page: #f0f8ff; /* Alice blue — clean ocean surface */
-  --gg-bg-card: #e8f4fd; /* slightly deeper card surface */
-  --gg-bg-elevated: #d4eaf7; /* hover states */
-  --gg-bg-border: #b8d4e8; /* borders and dividers */
+  /* --- Backgrounds — softer muted blue, not harsh white --- */
+  --gg-bg-page: #c8dcf0;
+  --gg-bg-card: #bbcfe8;
+  --gg-bg-elevated: #acc3e0;
+  --gg-bg-border: #8aaed0;
 
   /* --- Text --- */
-  --gg-text-primary: #0a2540; /* deep ocean ink — high contrast */
-  --gg-text-secondary: #1e5080; /* mid ocean blue */
-  --gg-text-muted: #4a80a8; /* muted blue-grey */
+  --gg-text-primary: #0a2540;
+  --gg-text-secondary: #1e5080;
+  --gg-text-muted: #4a80a8;
 
-  /* --- Accent — seafoam teal (CTAs, highlights) --- */
-  --gg-accent: #0096a0; /* teal — strong, ocean-inspired */
+  /* --- Accent --- */
+  --gg-accent: #0096a0;
   --gg-accent-hover: #007a84;
   --gg-accent-light: #40c8d0;
 
-  /* --- Legacy variables so cloned components don't break ---
-     Teaching note: when cloning from DataSpectacles, some
-     components still reference --ds-* variables. We map them
-     here to our new values so nothing breaks while we update
-     files one by one. Remove these once all files are updated. */
   --ds-accent: var(--gg-accent);
   --ds-accent-hover: var(--gg-accent-hover);
   --ds-bg-page: var(--gg-bg-page);
@@ -167,10 +162,10 @@ p {
    Softer blues — less harsh than pure white.
    ============================================================ */
 .light {
-  --gg-bg-page: #d8e8f5;
-  --gg-bg-card: #ccdff0;
-  --gg-bg-elevated: #bdd4ea;
-  --gg-bg-border: #9abdd6;
+  --gg-bg-page: #c8dcf0;
+  --gg-bg-card: #bbcfe8;
+  --gg-bg-elevated: #acc3e0;
+  --gg-bg-border: #8aaed0;
 
   --gg-text-primary: #0a2540;
   --gg-text-secondary: #1e5080;
