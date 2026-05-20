@@ -33,8 +33,7 @@ const hours = [
 ];
 
 export default function MapaSection() {
-  const { theme } = useTheme();
-  const isLight = theme === "light";
+  useTheme(); // keep hook call for future theme support
 
   /*
     Teaching note: cardStyle is defined once as a JS object

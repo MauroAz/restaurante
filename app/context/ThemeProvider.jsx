@@ -13,7 +13,7 @@ function getInitialTheme() {
     if (saved) return saved;
   }
   // Default to dark mode — user can switch to light via the toggle
-  return "dark";
+  return "light";
 }
 
 export const ThemeContext = createContext();
